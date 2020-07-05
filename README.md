@@ -145,6 +145,10 @@ Starting to ping IP: 216.58.213.195.
 Good ping from 216.58.213.195 27 ms
 ```
 
+## Demo Setup 
+
+![demo_setup](IMG_20200705_024627.jpg)
+
 ## Quirks
 
 ### PHY Address 
@@ -160,3 +164,4 @@ This is further explained in `ping_helper.c:99`. In my specific hardware and sof
 I have no idea whether there is a configuration switch for this, but it seems to be in the hardware -- I debugged the contents of the buffer in the `ETH` peripheral, the lowest-possible level, and it did have a correct checksum, while the data sent over the wire did not. Either the µC or the PHY will do the ICMP checksum calculation here, and very likely in IP, TCP and UDP, too. 
 
 If it is observed that no ping reply is received, double check which packets are received by the router and re-enable software checksum calculation if needed. 
+
