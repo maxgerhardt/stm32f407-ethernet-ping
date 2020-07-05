@@ -63,6 +63,12 @@ From STLink SWD programmer to the STM32F407:
 
 ## Software
 
+### Lineup:
+
+* STM32CubeMX 5.5.0
+* STM32Cube FW_F4 V1.24.2
+* lwIP 2.0.3
+
 ### Configuration 
 
 This demonstration uses no RTOS and the default lwIP stack provided by CubeMX. Only certain configurations have to be made to enable the usage of `ping_helper.c` in other projects. 
