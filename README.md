@@ -63,7 +63,7 @@ From STLink SWD programmer to the STM32F407:
 
 ## Software
 
-### Lineup:
+### Lineup
 
 * STM32CubeMX 5.5.0
 * STM32Cube FW_F4 V1.24.2
