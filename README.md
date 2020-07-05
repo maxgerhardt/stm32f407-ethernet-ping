@@ -50,6 +50,8 @@ From UART adapter to the STM32F407:
 * TX: PA10 (unused)
 * GND: GND 
 
+Baud at **921600** (minimizes processing time). 
+
 ### STLink
 
 From STLink SWD programmer to the STM32F407:
