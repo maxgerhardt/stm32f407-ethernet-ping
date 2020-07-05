@@ -79,7 +79,33 @@ The first one must be activated so that the ping helper can use the RAW lwIP API
 
 Second, the ping helper and demo relies on `sys_timeout` to handle ping timeouts, start the ping request and periodically check the ping result. 
 
-### Execution flow: 
+### `ping_helper` API 
+
+The ping helper files are not dependent on STM32-specifics, or an RTOS. They only rely on lwIP API calls. 
+
+The API lets a user start a ping request by using the `int ping_ip(ip_addr_t ping_addr)` function. The target IP address is the parameter and an error value (or `PING_ERR_OK`) is returned. Since no RTOS is involved, we can't have a blocking ping function, because we need to execute the processing of the ethernet input and stack in a polling mode. 
+
+The user should then continue processing ethernet data as normal. The status of the ping request can be obtained by calling `int ping_ip_result(ping_result_t *res);`. When this function returns `PING_ERR_OK`, the ping result information were stored in the memory pointed to by the `res` parameter. From this structure, it can be checked whether there was a ping echo reply, a timeout, or a different error. The time taken for the request in milliseconds can also be obtained.
+
+
+```cpp
+typedef enum {
+    PING_RES_TIMEOUT,               /* no response received in time */
+    PING_RES_ID_OR_SEQNUM_MISMATCH, /* response ID or sequence number mismatched */
+    PING_RES_ECHO_REPLY,            /* ping answer received */
+    PING_RES_DESTINATION_UNREACHABLE, /* destination unreachable received */
+    PING_RES_TIME_EXCEEDED,         /* for TTL to low or time during defrag exceeded (see wiki) */
+    PING_RES_UNHANDLED_ICMP_CODE,   /* for all ICMP types which are not specifically handled */
+} ping_result_code;
+
+typedef struct {
+    ping_result_code result_code;
+    u32_t response_time_ms;
+    ip_addr_t response_ip;
+} ping_result_t;
+```
+
+### Demo Execution flow: 
 
 1. Do low-level chip initialization (`HAL_Init()`, clock)
 2. Initialize GPIOs, USART1, ETH and lwIP 
