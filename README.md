@@ -21,6 +21,9 @@ CubeMX is used to genearte a project for a STM32F407 board. The ethernet periphe
 * Ethernet cable 
 * Router in home network
 
+![devboard](dev_board.webp)
+![eth_board](s-l1600.jpg)
+
 ## Wireup 
 
 ### Ethernet PYH 
